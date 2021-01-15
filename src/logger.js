@@ -26,7 +26,7 @@ function eventLogParamsDecorator(params) {
 }
 
 function eventLogDecorator(event, params, decorator = eventLogParamsDecorator) {
-    return `(${event}: ${paramsDecorator(params)}`;
+    return `(${event}: ${decorator(params)}`;
 }
 
 function stringifyAfterLevel(data, level = 2) {
@@ -185,7 +185,7 @@ class Logger {
             obj[methodName] = (...args) => {
                 logger[wrapMethodList[methodName]](`Call ${objectName}.${methodName}`, { args })
                 return object[methodName](...args);
-            }
+            };
             return obj;
         }, resObject);
     }
